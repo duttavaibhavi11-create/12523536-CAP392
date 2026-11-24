@@ -1,0 +1,347 @@
+//1480. Running Sum of 1d Array
+class Solution {
+    public int[] runningSum(int[] nums) {
+        for(int i=1;i<nums.length;i++){
+            nums[i]=nums[i]+nums[i-1];
+        }
+        return nums;
+        
+    }
+}
+
+//1672. Richest Customer Wealth
+class Solution {
+    public int maximumWealth(int[][] accounts) {
+        int max=0;
+        for(int i=0;i<accounts.length;i++){
+            int sum=0;
+            for(int j=0;j<accounts[i].length;j++){
+            sum=sum+accounts[i][j];
+        }
+        if(sum>max){
+            max=sum;
+        }
+        }
+        return max;
+    }
+}
+
+//217. Contains Duplicate
+class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        HashSet<Integer>set=new HashSet<>();
+        for(int i=0;i<nums.length;i++){
+            if(set.contains(nums[i])){
+                 return true;
+            }
+            set.add(nums[i]);
+            }
+            return false;
+    }
+}
+
+//344. Reverse String
+class Solution {
+    public void reverseString(char[] s) {
+        int left=0;
+        int right=s.length-1;
+
+        while(left<right){
+            char temp=s[left];
+            s[left]=s[right];
+            s[right]=temp;
+
+            left++;
+            right--;
+        }
+    }
+}
+
+//125. Valid Palindrome
+class Solution {
+    public boolean isPalindrome(String s) {
+        s = s.toLowerCase().replaceAll("[^a-z0-9]", "");
+        int left = 0;
+        int right = s.length() - 1;
+        while (left < right) {
+            if (s.charAt(left) != s.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+
+        return true;
+    }
+}
+
+//28. Find the Index of the First Occurrence in a String
+class Solution {
+    public int strStr(String haystack, String needle) {
+        return haystack.indexOf(needle);
+    }
+}
+
+//14.Longest Common Prefix
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        String prefix = strs[0];
+        for (int i = 1; i < strs.length; i++) {
+            while (!strs[i].startsWith(prefix)) {
+                prefix = prefix.substring(0, prefix.length() - 1);
+                if (prefix.isEmpty()) {
+                    return "";
+                }
+            }
+        }
+
+        return prefix;
+    }
+}
+
+//709. To Lower Case
+class Solution {
+    public String toLowerCase(String s) {
+        return s.toLowerCase();
+    }
+}
+
+//1603. Design Parking System
+class ParkingSystem {
+    int big;
+    int medium;
+    int small;
+    public ParkingSystem(int big, int medium, int small) {
+        this.big = big;
+        this.medium = medium;
+        this.small = small;
+    }
+    public boolean addCar(int carType) {
+    if (carType == 1 && big > 0) {
+            big--;
+            return true;
+        }
+        else if (carType == 2 && medium > 0) {
+            medium--;
+            return true;
+        }
+        else if (carType == 3 && small > 0) {
+            small--;
+            return true;
+        }
+        return false;
+    }
+}
+
+//933.Number of Recent Calls
+import java.util.*;
+class RecentCounter {
+    Queue<Integer> q;
+    public RecentCounter() {
+        q = new LinkedList<>();
+    }
+    public int ping(int t) {
+    q.add(t);
+      while (q.peek() < t - 3000) {
+            q.poll();
+        }
+
+        return q.size();
+    }
+}
+
+//155. Min Stack
+class MinStack {
+
+    Stack<Integer> s;
+    Stack<Integer> min;
+
+    public MinStack() {
+        s = new Stack<>();
+        min = new Stack<>();
+    }
+
+    public void push(int val) {
+        s.push(val);
+
+        if (min.isEmpty() || val <= min.peek()) {
+            min.push(val);
+        }
+    }
+
+    public void pop() {
+        int x = s.pop();
+
+        if (x == min.peek()) {
+            min.pop();
+        }
+    }
+
+    public int top() {
+        return s.peek();
+    }
+
+    public int getMin() {
+        return min.peek();
+    }
+}
+
+//707 Design Linked List
+lass MyLinkedList {
+    Node head;
+       class Node {
+        int data;
+        Node next;
+
+        Node(int data) {
+            this.data = data;
+            next = null;
+        }
+    }
+
+    public MyLinkedList() {
+        head = null;
+    }
+
+    public int get(int index) {
+        Node temp = head;
+
+        for (int i = 0; i < index; i++) {
+            if (temp == null) {
+                return -1;
+            }
+            temp = temp.next;
+        }
+
+        if (temp == null) {
+            return -1;
+        }
+
+        return temp.data;
+    }
+
+    public void addAtHead(int val) {
+        Node newNode = new Node(val);
+        newNode.next = head;
+        head = newNode;
+    }
+
+    public void addAtTail(int val) {
+        Node newNode = new Node(val);
+
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+
+        Node temp = head;
+
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+
+        temp.next = newNode;
+    }
+
+    public void addAtIndex(int index, int val) {
+        if (index == 0) {
+            addAtHead(val);
+            return;
+        }
+
+        Node temp = head;
+
+        for (int i = 0; i < index - 1; i++) {
+            if (temp == null) {
+                return;
+            }
+            temp = temp.next;
+        }
+
+        if (temp == null) {
+            return;
+        }
+
+        Node newNode = new Node(val);
+        newNode.next = temp.next;
+        temp.next = newNode;
+    }
+
+    public void deleteAtIndex(int index) {
+        if (head == null) {
+            return;
+        }
+
+        if (index == 0) {
+            head = head.next;
+            return;
+        }
+
+        Node temp = head;
+
+        for (int i = 0; i < index - 1; i++) {
+            if (temp == null) {
+                return;
+            }
+            temp = temp.next;
+        }
+
+        if (temp == null || temp.next == null) {
+            return;
+        }
+
+        temp.next = temp.next.next;
+    }
+}
+
+//28. Find the Index of the First Occurrence in a String
+class Solution {
+    public int strStr(String haystack, String needle) {
+
+        for (int i = 0; i <= haystack.length() - needle.length(); i++) {
+
+            if (haystack.substring(i, i + needle.length()).equals(needle)) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+}
+//121. Best Time to Buy and Sell Stock
+lass Solution {
+    public int maxProfit(int[] prices) {
+        int min = prices[0];
+        int profit = 0;
+
+        for (int i = 1; i < prices.length; i++) {
+
+            if (prices[i] < min) {
+                min = prices[i];
+            }
+
+            int currentProfit = prices[i] - min;
+
+            if (currentProfit > profit) {
+                profit = currentProfit;
+            }
+        }
+
+        return profit;
+    }
+}
+//1470. Shuffle the Array
+class Solution {
+    public int[] shuffle(int[] nums, int n) {
+
+        int[] ans = new int[nums.length];
+
+        for (int i = 0; i < n; i++) {
+            ans[2 * i] = nums[i];
+            ans[2 * i + 1] = nums[i + n];
+        }
+
+        return ans;
+    }
+}
+
